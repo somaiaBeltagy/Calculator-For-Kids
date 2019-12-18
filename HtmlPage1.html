@@ -1,0 +1,158 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+    <link href="StyleSheet1.css" rel="stylesheet" />
+    <script src="jquery-3.4.1.js"></script>
+
+</head>
+<body>
+    
+    <div id="background">
+        <!-- Main background -->
+
+        <div id="result"></div>
+        <div id="cal"></div>
+
+
+        <div id="main">
+            <div id="first-rows">
+                <button class="del-bg" id="delete">Del</button>
+                <button id="rem" value="%" class="btn-style operator opera-bg fall-back">%</button>
+                <button id="plus" value="+" class="btn-style opera-bg value align operator">+</button>
+            </div>
+
+            <div class="rows">
+                <button id="7" value="7" class="btn-style num-bg num first-child">7</button>
+                <button id="8" value="8" class="btn-style num-bg num">8</button>
+                <button id="9" value="9" class="btn-style num-bg num">9</button>
+                <button id="min" value="-" class="btn-style opera-bg operator">-</button>
+            </div>
+
+            <div class="rows">
+                <button id="4" value="4" class="btn-style num-bg num first-child">4</button>
+                <button id="5" value="5" class="btn-style num-bg num">5</button>
+                <button id="6" value="6" class="btn-style num-bg num">6</button>
+                <button id="ast" value="*" class="btn-style opera-bg operator">x</button>
+            </div>
+
+            <div class="rows">
+                <button id="1" value="1" class="btn-style num-bg num first-child"> 1</button>
+                <button id="2" value="2" class="btn-style num-bg num">2</button>
+                <button id="3" value="3" class="btn-style num-bg num">3</button>
+                <button id="dif" value="/" class="btn-style opera-bg operator">/</button>
+            </div>
+
+            <div class="rows">
+                <button value="0" class="num-bg zero" id="delete">0</button>
+                <button id="." value="." class="btn-style num-bg period fall-back">.</button>
+                <button value="=" id="eqn-bg" class="eqn align">=</button>
+            </div>
+            <button id="try">try agin</button>
+            <div id="check"></div>
+          
+
+        </div>
+
+    </div>
+
+</body>
+</html>
+<script>
+    $(document).ready(function () {
+
+        var testres = [5, 10, 15]
+        var r = $("#cal").text();
+        var i = 0
+       
+        $("#result").html(testres[i]);
+            var r = "";
+
+            if ($("#result").html() == 5) {
+                $("button").prop("disabled", true)
+                $("#4,#1,#2,#3,#plus,#eqn-bg,#delete,#ast,#try").prop("disabled", false).css("background", "green")
+            }
+
+
+            $("button").click(function () {
+
+                if ($(this).attr("id") == "eqn-bg") {
+
+                    if (r[r.length - 1] =="+"||r[r.length - 1] =="-"||r[r.length - 1] =="/"||r[r.length - 1] =="*") {
+                       // r = "";
+                       // $("#cal").html(r);
+                        $("#check").html("plz complete ur OP")
+                    }
+                    value = eval(r)
+                    r = ""
+                    $("#cal").html(value)
+
+                    if ($("#cal").html() == $("#result").html()) {
+
+                        $("#check").html("Ecxellent ^^")
+                        i++
+                        $("#result").html(testres[i]);
+                        if ($("#result").html() == 10) {
+                            $("button").prop("disabled", true).css("background", "black")
+                            $("#1,#9,#delete,#2,#5,#plus,#min,#ast,#eqn-bg,#try").prop("disabled", false).css("background", "green")
+
+                        }
+                        else if ($("#result").html() == 15) {
+                            $("button").prop("disabled", true).css("background", "black")
+                            $("#5,#8,#plus,#delete,#ast,#7,#3,#eqn-bg,#try").prop("disabled", false).css("background", "green")
+                        }
+                    }
+                    else  {
+                        $("#check").html(" try this one :)").css("text-align" , "center")
+                        var n = $("#result").html()
+                        if (n == 5) {
+                            r = "";
+                            $("#cal").html(r);
+                           $("button").prop("disabled", true).css("background", "black")
+                             $("#4,#1,#plus,#eqn-bg").prop("disabled", false).css("background", "#f8e01a")
+                            //$("#4,#1,#plus,#eqn-bg").animate({ backgroundColor: '#f8e01a' }, 'slow')
+
+                           
+                        }
+                        else if (n == 10) {
+                            r = "";
+                            $("#cal").html(r);
+                            $("button").prop("disabled", true).css("background", "black")
+                            $("#9,#1,#plus,#eqn-bg").prop("disabled", false).css("background", "#f8e01a")
+                        }
+                        else if (n == 15) {
+                            r = "";
+                            $("#cal").html(r);
+                            $("button").prop("disabled", true).css("background", "black")
+                            $("#3,#5,#ast,#eqn-bg").prop("disabled", false).css("background", "#f8e01a")
+                        }
+
+                    }
+                }
+                else {
+                    r += $(this).val();
+                    $("#cal").html(r);
+                }
+
+                $("#delete").click(function () {
+
+                    r = "";
+                    $("#cal").html(r);
+
+                })
+                $("#try").click(function () {
+
+                    location.reload();
+                    
+
+                })
+
+
+            })
+
+        
+    })
+
+
+
+</script>
